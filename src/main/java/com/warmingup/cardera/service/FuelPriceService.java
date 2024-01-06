@@ -4,16 +4,22 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.warmingup.cardera.dto.FuelPriceRequestDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+import java.util.Optional;
+
 @Service
+@RequiredArgsConstructor
 public class FuelPriceService {
 
     private final String apiUrl = "https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving";
     private final String apiKeyId = "5y27ee5zb1";
     private final String apiKey = "Lrm4u7Ma8xCh1CtqcqlCabNvHUkAxINyrQOEP1Md";
+
+    private final UserChoiceRepository userChoiceRepository;
     public int getFuelPrice(FuelPriceRequestDto fuelPriceRequestDto) {
 
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(apiUrl);
@@ -28,7 +34,7 @@ public class FuelPriceService {
                 .block();
 
         //todo
-        // null check -> optional?
+        // null check -> optional
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
 
         int fuelPrice = jsonObject
@@ -39,7 +45,12 @@ public class FuelPriceService {
                 .getAsJsonObject("summary")
                 .get("fuelPrice").getAsInt();
 
-        // 내야 할 값 = 유류비 * number / count
         return fuelPrice * fuelPriceRequestDto.getCarpoolCount() / fuelPriceRequestDto.getPassengerNumber();
     }
+
+    public List<UserChoice> getUserChoices(){
+        return userChoiceRepository.findAll();
+    }
+
+
 }
