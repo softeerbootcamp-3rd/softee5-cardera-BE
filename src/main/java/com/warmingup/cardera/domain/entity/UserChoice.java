@@ -20,4 +20,8 @@ public class UserChoice {
     @Builder.Default
     @Column(nullable = false)
     private int choiceCount = 0;
+
+    public void incrementCount() {
+        this.choiceCount += 1;
+    }
 }
