@@ -11,7 +11,7 @@ public class FuelPriceRequestDto {
 
     private String goal; //도착지 주소
 
-    private CarpoolType carpoolType;
+    private CarpoolType carpoolType; // 편도/왕복 여부
 
     private int passengerNumber; //탑승자 수
 
