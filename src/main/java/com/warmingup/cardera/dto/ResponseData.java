@@ -12,5 +12,5 @@ public class ResponseData {
 
     private int fuelPrice;
 
-    private List<UserChoiceDto> userChoiceDtoList;
+    private List<UserChoiceDto> tipOptions;
 }

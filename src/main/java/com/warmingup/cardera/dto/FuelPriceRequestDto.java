@@ -7,11 +7,13 @@ import lombok.Data;
 @AllArgsConstructor
 public class FuelPriceRequestDto {
 
-    private String start;
+    private String start; //출발지 주소
 
-    private String goal;
+    private String goal; //도착지 주소
 
-    private int passengerNumber;
+    private CarpoolType carpoolType;
 
-    private int carpoolCount;
+    private int passengerNumber; //탑승자 수
+
+    private int carpoolCount; //카풀 횟수
 }
