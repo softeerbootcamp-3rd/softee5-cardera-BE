@@ -1,6 +1,6 @@
 package com.warmingup.cardera.service;
 
-public class ApiInfoConst {
+public abstract class ApiInfoConst {
 
     public static final String GEOCODE_API_URL = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode";
     public static final String DIRECTIONS5_API_URL = "https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving";

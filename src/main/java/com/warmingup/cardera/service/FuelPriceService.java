@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.warmingup.cardera.service.ApiInfoConst.*;
 
@@ -21,7 +22,7 @@ public class FuelPriceService {
 
     private final UserChoiceRepository userChoiceRepository;
 
-    public int getFuelPrice(FuelPriceRequestDto fuelPriceRequestDto) {
+    public int calculateFuelPrice(FuelPriceRequestDto fuelPriceRequestDto) {
 
         // 1. start, goal 주소를 경도, 위도로 변환
         String startCoordinate = getCoordinate(fuelPriceRequestDto.getStart());
@@ -30,7 +31,7 @@ public class FuelPriceService {
         // 2. 출발지, 도착지의 경도와 위도 정보에서 유류비 받아오기
         int fuelPrice = getFuelPrice(startCoordinate, goalCoordinate);
 
-        //todo 계산 방법 바뀔 수도 있음.
+        //todo 계산 방법 바뀔 수도 있음. (함수 따로 빼서 계산하기)
         CarpoolType carpoolType = fuelPriceRequestDto.getCarpoolType();
         return fuelPrice * fuelPriceRequestDto.getCarpoolCount() / fuelPriceRequestDto.getPassengerNumber();
     }
@@ -44,15 +45,15 @@ public class FuelPriceService {
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.URI_COMPONENT);
 
         WebClient webClient1 = WebClient.builder().uriBuilderFactory(factory).build();
-        String response = webClient1.get()
+        Optional<String> response = Optional.ofNullable(webClient1.get()
                 .uri(uriBuilder -> uriBuilder.queryParam("query", address).build())
                 .header("X-NCP-APIGW-API-KEY-ID", API_KEY_Id)
                 .header("X-NCP-APIGW-API-KEY", API_KEY)
                 .retrieve().bodyToMono(String.class)
-                .block();
+                .block());
 
         //response 파싱
-        JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseString(response.orElseThrow()).getAsJsonObject();
         JsonObject addresses = jsonObject.getAsJsonArray("addresses").get(0).getAsJsonObject();
         String longitude = addresses.get("x").toString().replace("\"", "");
         String latitude = addresses.get("y").toString().replace("\"", "");
@@ -65,17 +66,16 @@ public class FuelPriceService {
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
 
         WebClient webClient = WebClient.builder().uriBuilderFactory(factory).baseUrl(DIRECTIONS5_API_URL).build();
-        String response = webClient.get()
-                .uri(uriBuilder -> uriBuilder.queryParam("start", startCoordinate).queryParam("goal",goalCoordinate).build())
+
+        Optional<String> response = Optional.ofNullable(webClient.get()
+                .uri(uriBuilder -> uriBuilder.queryParam("start", startCoordinate).queryParam("goal", goalCoordinate).build())
                 .header("X-NCP-APIGW-API-KEY-ID", API_KEY_Id)
                 .header("X-NCP-APIGW-API-KEY", API_KEY)
                 .retrieve().bodyToMono(String.class)
-                .block();
+                .block());
 
-        //todo
-        // null check -> optional
         //response 파싱
-        JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseString(response.orElseThrow()).getAsJsonObject();
 
         int fuelPrice = jsonObject
                 .getAsJsonObject("route")

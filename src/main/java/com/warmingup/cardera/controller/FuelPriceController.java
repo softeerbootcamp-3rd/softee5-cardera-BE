@@ -14,19 +14,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class FuelPriceController {
 
     private final FuelPriceService fuelPriceService;
     @GetMapping("/calculation")
-    public ResponseEntity<ResponseData> calculateFuelPrice(@ModelAttribute FuelPriceRequestDto fuelPriceRequestDto) {
+    public ResponseEntity<ResponseData> getFuelPriceAndUserChoice(@ModelAttribute FuelPriceRequestDto fuelPriceRequestDto) {
 
-        int fuelPrice = fuelPriceService.getFuelPrice(fuelPriceRequestDto);
+        int fuelPrice = fuelPriceService.calculateFuelPrice(fuelPriceRequestDto);
         List<UserChoiceDto> userChoiceDtoList = getUserCountByMultiple();
         return new ResponseEntity<>(new ResponseData(fuelPrice, userChoiceDtoList), HttpStatus.OK);
     }
