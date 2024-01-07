@@ -49,7 +49,6 @@ public class InitDB {
                     .build();
 
             userChoiceRepository.saveAll(Arrays.asList(userChoice1,userChoice2,userChoice3,userChoice4));
-
         }
     }
 }
