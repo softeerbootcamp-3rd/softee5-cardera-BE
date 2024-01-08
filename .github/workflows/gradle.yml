@@ -41,7 +41,7 @@ jobs:
           ./gradlew clean build -x test
 
       - name: Create zip file
-        run: zip -r ./cardera-springboot-$GITHUB_SHA.zip ./build/libs/*.jar
+        run: zip -r ./cardera-springboot-$GITHUB_SHA.zip ./build/libs/*.jar ./appspec.yml ./scripts/
 
       - name: AWS credential 설정
         uses: aws-actions/configure-aws-credentials@v1
