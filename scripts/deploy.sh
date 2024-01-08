@@ -13,7 +13,7 @@ echo "[$NOW] $JAR 복사" >> $START_LOG
 cp $ROOT_PATH/build/libs/cardera-0.0.1-SNAPSHOT.jar $JAR
 
 echo "[$NOW] > $JAR 실행" >> $START_LOG
-nohup java -jar $JAR --spring.profiles.active=prod &
+nohup java -jar $JAR --spring.profiles.active=prod > /dev/null 2>&1 &
 
 SERVICE_PID=$(pgrep -f $JAR)
 echo "[$NOW] > 서비스 PID: $SERVICE_PID" >> $START_LOG
