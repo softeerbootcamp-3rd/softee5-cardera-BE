@@ -54,5 +54,5 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 --acl private ./cardera-springboot-$GITHUB_SHA.zip s3://cardera-code/
 
       - name: Code Deploy
-        run: aws deploy create-deployment --application-name cardera-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name cardera-deploy-group --s3-location bucket=cardera-code,key=cardera/$GITHUB_SHA.zip,bundleType=zip
+        run: aws deploy create-deployment --application-name cardera-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name cardera-deploy-group --s3-location bucket=cardera-code,key=cardera-springboot-$GITHUB_SHA.zip,bundleType=zip
 
