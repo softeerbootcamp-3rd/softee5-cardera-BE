@@ -54,8 +54,8 @@ public class FuelPriceService {
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(apiConfig.getGeocodeApiUrl());
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.URI_COMPONENT);
 
-        WebClient webClient1 = WebClient.builder().uriBuilderFactory(factory).build();
-        Optional<String> response = Optional.ofNullable(webClient1.get()
+        WebClient webClient = WebClient.builder().uriBuilderFactory(factory).build();
+        Optional<String> response = Optional.ofNullable(webClient.get()
                 .uri(uriBuilder -> uriBuilder.queryParam("query", address).build())
                 .header("X-NCP-APIGW-API-KEY-ID", apiConfig.getApiKeyId())
                 .header("X-NCP-APIGW-API-KEY", apiConfig.getApiKey())

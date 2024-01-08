@@ -10,6 +10,6 @@ spring:
         format_sql: true
     show-sql: true
 
-  logging:
-    level:
-      org.hibernate.type: trace
+logging:
+  level:
+    org.hibernate.type: trace
