@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+    import: rds-prod.yml
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
