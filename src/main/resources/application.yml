@@ -8,7 +8,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     generate-ddl: 'true'
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   h2:
     console:
       enabled: true
