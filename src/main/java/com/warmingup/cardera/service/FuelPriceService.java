@@ -2,10 +2,11 @@ package com.warmingup.cardera.service;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.warmingup.cardera.config.ApiConfig;
 import com.warmingup.cardera.domain.entity.UserChoice;
 import com.warmingup.cardera.domain.repository.UserChoiceRepository;
-import com.warmingup.cardera.dto.CarpoolType;
 import com.warmingup.cardera.dto.FuelPriceRequestDto;
+import com.warmingup.cardera.dto.TollFareAndFuelPriceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -20,6 +21,7 @@ import static com.warmingup.cardera.service.ApiInfoConst.*;
 @RequiredArgsConstructor
 public class FuelPriceService {
 
+    private final ApiConfig apiConfig;
     private final UserChoiceRepository userChoiceRepository;
 
     public int calculateFuelPrice(FuelPriceRequestDto fuelPriceRequestDto) {
@@ -29,11 +31,19 @@ public class FuelPriceService {
         String goalCoordinate = getCoordinate(fuelPriceRequestDto.getGoal());
 
         // 2. 출발지, 도착지의 경도와 위도 정보에서 유류비 받아오기
-        int fuelPrice = getFuelPrice(startCoordinate, goalCoordinate);
+        TollFareAndFuelPriceDto tollFareAndFuelPrice = getTollFareAndFuelPrice(startCoordinate, goalCoordinate);
+        return calculateCarPoolPricePerPerson(tollFareAndFuelPrice, fuelPriceRequestDto);
+    }
 
-        //todo 계산 방법 바뀔 수도 있음. (함수 따로 빼서 계산하기)
-        CarpoolType carpoolType = fuelPriceRequestDto.getCarpoolType();
-        return fuelPrice * fuelPriceRequestDto.getCarpoolCount() / fuelPriceRequestDto.getPassengerNumber();
+
+    private int calculateCarPoolPricePerPerson(TollFareAndFuelPriceDto tollFareAndFuelPrice, FuelPriceRequestDto fuelPriceRequestDto) {
+        int price = ((tollFareAndFuelPrice.getTollFare() + tollFareAndFuelPrice.getFuelPrice()) * fuelPriceRequestDto.getCarpoolCount()) / fuelPriceRequestDto.getPassengerNumber();
+        return roundToTen(price);
+    }
+
+    // 1의 자리에서 반올림 하는 함수
+    private int roundToTen(int price) {
+        return (price+5)/10*10;
     }
 
     public List<UserChoice> getUserChoices(){
@@ -41,14 +51,14 @@ public class FuelPriceService {
     }
 
     private String getCoordinate(String address) {
-        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(GEOCODE_API_URL);
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(apiConfig.getGeocodeApiUrl());
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.URI_COMPONENT);
 
         WebClient webClient1 = WebClient.builder().uriBuilderFactory(factory).build();
         Optional<String> response = Optional.ofNullable(webClient1.get()
                 .uri(uriBuilder -> uriBuilder.queryParam("query", address).build())
-                .header("X-NCP-APIGW-API-KEY-ID", API_KEY_Id)
-                .header("X-NCP-APIGW-API-KEY", API_KEY)
+                .header("X-NCP-APIGW-API-KEY-ID", apiConfig.getApiKeyId())
+                .header("X-NCP-APIGW-API-KEY", apiConfig.getApiKey())
                 .retrieve().bodyToMono(String.class)
                 .block());
 
@@ -61,32 +71,32 @@ public class FuelPriceService {
         return longitude + "," + latitude;
     }
 
-    private int getFuelPrice(String startCoordinate, String goalCoordinate) {
+    private TollFareAndFuelPriceDto getTollFareAndFuelPrice(String startCoordinate, String goalCoordinate) {
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(DIRECTIONS5_API_URL);
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
 
-        WebClient webClient = WebClient.builder().uriBuilderFactory(factory).baseUrl(DIRECTIONS5_API_URL).build();
+        WebClient webClient = WebClient.builder().uriBuilderFactory(factory).baseUrl(apiConfig.getDirections5ApiUrl()).build();
 
         Optional<String> response = Optional.ofNullable(webClient.get()
                 .uri(uriBuilder -> uriBuilder.queryParam("start", startCoordinate).queryParam("goal", goalCoordinate).build())
-                .header("X-NCP-APIGW-API-KEY-ID", API_KEY_Id)
-                .header("X-NCP-APIGW-API-KEY", API_KEY)
+                .header("X-NCP-APIGW-API-KEY-ID", apiConfig.getApiKeyId())
+                .header("X-NCP-APIGW-API-KEY", apiConfig.getApiKey())
                 .retrieve().bodyToMono(String.class)
                 .block());
 
         //response 파싱
         JsonObject jsonObject = JsonParser.parseString(response.orElseThrow()).getAsJsonObject();
 
-        int fuelPrice = jsonObject
+        JsonObject resultSummaryJsonObject = jsonObject
                 .getAsJsonObject("route")
                 .getAsJsonArray("traoptimal")
                 .get(0)
                 .getAsJsonObject()
-                .getAsJsonObject("summary")
-                .get("fuelPrice").getAsInt();
+                .getAsJsonObject("summary");
 
-        return fuelPrice;
+        int tollFare = resultSummaryJsonObject.get("tollFare").getAsInt();
+        int fuelPrice = resultSummaryJsonObject.get("fuelPrice").getAsInt();
+
+        return new TollFareAndFuelPriceDto(tollFare, fuelPrice);
     }
-
-
 }

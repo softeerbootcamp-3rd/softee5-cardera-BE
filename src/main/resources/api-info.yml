@@ -1,0 +1,6 @@
+api:
+  key: Lrm4u7Ma8xCh1CtqcqlCabNvHUkAxINyrQOEP1Md
+  key-id: 5y27ee5zb1
+  url:
+    geocode: https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode
+    directions5: https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving
