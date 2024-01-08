@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-@PropertySource("classpath:/api-info.yml")
 public class ApiConfig {
 
     @Value("${api.url.geocode}")

@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: api-info.yml
   profiles:
     active: local
 
