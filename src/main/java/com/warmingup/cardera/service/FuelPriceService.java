@@ -15,8 +15,6 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import java.util.List;
 import java.util.Optional;
 
-import static com.warmingup.cardera.service.ApiInfoConst.*;
-
 @Service
 @RequiredArgsConstructor
 public class FuelPriceService {
@@ -72,7 +70,7 @@ public class FuelPriceService {
     }
 
     private TollFareAndFuelPriceDto getTollFareAndFuelPrice(String startCoordinate, String goalCoordinate) {
-        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(DIRECTIONS5_API_URL);
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(apiConfig.getDirections5ApiUrl());
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
 
         WebClient webClient = WebClient.builder().uriBuilderFactory(factory).baseUrl(apiConfig.getDirections5ApiUrl()).build();
