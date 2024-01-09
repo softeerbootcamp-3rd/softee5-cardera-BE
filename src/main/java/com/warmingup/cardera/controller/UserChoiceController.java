@@ -3,6 +3,7 @@ package com.warmingup.cardera.controller;
 import com.warmingup.cardera.dto.UserChoiceRequestDto;
 import com.warmingup.cardera.service.UserChoiceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;

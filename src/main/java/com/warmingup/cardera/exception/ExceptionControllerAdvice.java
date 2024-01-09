@@ -20,4 +20,9 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
+
+    @ExceptionHandler(FailSearchException.class)
+    public ResponseEntity<String> handleFailSearchException(FailSearchException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }
