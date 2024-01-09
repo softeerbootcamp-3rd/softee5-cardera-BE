@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 public class FuelPriceController {
 
-    private final FuelPriceService fuelPriceService;
+    private final FuelPriceService  fuelPriceService;
     @GetMapping("/calculation")
     public ResponseEntity<FuelPriceResponseDto> getFuelPriceAndUserChoice(@ModelAttribute FuelPriceRequestDto fuelPriceRequestDto) {
 
