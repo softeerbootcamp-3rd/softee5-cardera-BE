@@ -1,0 +1,15 @@
+spring:
+  config:
+    import: api-info.yml
+  profiles:
+    active: local
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+logging:
+  level:
+    org.hibernate.type: trace
