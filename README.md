@@ -42,6 +42,11 @@
 <img src="https://github.com/softeerbootcamp-3nd/softee5-cardera-BE/assets/70956926/a8270704-62b4-4b8d-a343-c054847a77dc" height="500px">
 
 ## 🧑‍💻 Dev Stack
+### Frontend
+![Typescript](https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Parcel](https://img.shields.io/badge/parcel-000000?style=for-the-badge&logo=parcel&logoColor=white)
+![tailwindcss](https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+
 ### Backend
 ![SpringBoot](https://img.shields.io/badge/Springboot-6DB33F?style=for-the-badge&logo=Springboot&logoColor=white)
 ![H2](https://img.shields.io/badge/H2-4479A1?style=for-the-badge&logo=H2&logoColor=white)
@@ -49,19 +54,14 @@
 ![AWS RDS](https://img.shields.io/badge/aws_rds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white)
 
 ### Deploy
+#### FE
+![Netlify](https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+
 #### BE
 ![AWS EC2](https://img.shields.io/badge/AWS_EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white)
 ![AWS S3](https://img.shields.io/badge/aws_s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white)
 ![AWS CodeDeploy](https://img.shields.io/badge/aws_codedeploy-FF9900?style=for-the-badge&logo=awscodedeploy&logoColor=white)
 ![GithubActions](https://img.shields.io/badge/Github_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
-
-#### FE
-![Netlify](https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
-
-### Frontend
-![Typescript](https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Parcel](https://img.shields.io/badge/parcel-000000?style=for-the-badge&logo=parcel&logoColor=white)
-![tailwindcss](https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
 
 ## 🛠 System Architecture
