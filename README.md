@@ -67,6 +67,24 @@
 ## 🛠 System Architecture
 ![시스템아키텍쳐](https://github.com/softeerbootcamp-3nd/softee5-cardera-BE/assets/70956926/17fb3a74-1fc8-4eca-b234-2ad195f7cf15)
 
+## Archive
+### 📝 [API 명세서](https://www.notion.so/b-side/API-07528cac80cd4b769ad473e414d37982?pvs=4)
+### 🌳 [Git 브랜치 전략](https://www.notion.so/b-side/Git-fb3b21b06b0b4df792beb4e7e04702dd?pvs=4)
+### 📏 [그라운드 룰](https://www.notion.so/b-side/ab1c45455ac441fda921d35430238c75?pvs=4)
+
+### 💾 Database Schema
+![image](https://github.com/softeerbootcamp-3nd/softee5-cardera-BE/assets/70956926/dbeefec3-0c66-4ada-a47a-1a1d6b5303a8)
+
+
+### 💻 백엔드 구현 기능
+* 네이버 `directions5` API를 이용해서 유류비를 계산해주는 API
+* 유저가 선택한 수고비 옵션을 저장하는 API
+* 운영환경과 개발환경을 분리해서 개발환경에서는 `H2`, 운영환경에서는 `AWS RDS` `MySQL` 인스턴스 이용
+* `AWS EC2`에 백엔드 서버 배포 진행
+* `GitHub Actions`와 `AWS S3`, `AWS CodeDeploy`를 사용하여 CI/CD 파이프라인 구축
+* `NGINX`와 `letsencrypt`를 사용하여 HTTPS 설정
+* `JUnit`, `AssertJ`, `mockito` 라이브러리를 이용하여 유닛 테스트코드 작성
+
 
 ## ✨ About Team
 ### 현대 소프티어 부트캠프 3기 워밍업 프로젝트 소프티5 - 기디개팀(4팀)
