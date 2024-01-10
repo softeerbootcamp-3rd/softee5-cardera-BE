@@ -49,13 +49,24 @@
 ![AWS RDS](https://img.shields.io/badge/aws_rds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white)
 
 ### Deploy
+#### BE
 ![AWS EC2](https://img.shields.io/badge/AWS_EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white)
 ![AWS S3](https://img.shields.io/badge/aws_s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white)
 ![AWS CodeDeploy](https://img.shields.io/badge/aws_codedeploy-FF9900?style=for-the-badge&logo=awscodedeploy&logoColor=white)
 ![GithubActions](https://img.shields.io/badge/Github_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
 
+#### FE
+![Netlify](https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+
+### Frontend
+![Typescript](https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Parcel](https://img.shields.io/badge/parcel-000000?style=for-the-badge&logo=parcel&logoColor=white)
+![tailwindcss](https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+
+
 ## 🛠 System Architecture
 ![시스템아키텍쳐](https://github.com/softeerbootcamp-3nd/softee5-cardera-BE/assets/70956926/17fb3a74-1fc8-4eca-b234-2ad195f7cf15)
+
 
 ## ✨ About Team
 ### 현대 소프티어 부트캠프 3기 워밍업 프로젝트 소프티5 - 기디개팀(4팀)
