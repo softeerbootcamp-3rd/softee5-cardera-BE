@@ -65,6 +65,10 @@
 
 
 ## 🛠 System Architecture
+### Frontend
+![image 66](https://github.com/softeerbootcamp-3nd/softee5-cardera-BE/assets/70956926/8423643d-25b2-4597-a4b4-6c7e1d6866bc)
+
+### Backend
 ![시스템아키텍쳐](https://github.com/softeerbootcamp-3nd/softee5-cardera-BE/assets/70956926/17fb3a74-1fc8-4eca-b234-2ad195f7cf15)
 
 ## Archive
