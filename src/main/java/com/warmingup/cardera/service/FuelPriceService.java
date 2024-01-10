@@ -1,5 +1,7 @@
 package com.warmingup.cardera.service;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.warmingup.cardera.config.ApiConfig;
@@ -71,7 +73,11 @@ public class FuelPriceService {
 
     private String extractCoordinateFromResponse(Optional<String> response) {
         JsonObject jsonObject = JsonParser.parseString(response.orElseThrow()).getAsJsonObject();
-        JsonObject addresses = jsonObject.getAsJsonArray("addresses").get(0).getAsJsonObject();
+        JsonArray addressesArray = jsonObject.getAsJsonArray("addresses");
+        if (addressesArray.isEmpty()) {
+            throw new FailSearchException("주소를 (경도,위도)로 변경할 수 없습니다.");
+        }
+        JsonObject addresses = addressesArray.get(0).getAsJsonObject();
         String longitude = addresses.get("x").toString().replace("\"", "");
         String latitude = addresses.get("y").toString().replace("\"", "");
 
