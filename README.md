@@ -93,6 +93,9 @@
 ## ✨ About Team
 ### 현대 소프티어 부트캠프 3기 워밍업 프로젝트 소프티5 - 기디개팀(4팀)
 
+![마지막 페이지](https://github.com/softeerbootcamp-3nd/softee5-cardera-BE/assets/70956926/7e29acd8-648c-4def-9194-2116a6717d58)
+
+
 
 
 |      기획       |          디자인         |      개발(FE)         |      개발(BE)       |          개발(BE)         |       개발(BE)         |                                                                                                            
