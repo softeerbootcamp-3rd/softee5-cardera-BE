@@ -8,11 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApiConfig {
 
-    @Value("${api.url.geocode}")
-    private String GeocodeApiUrl;
+    @Value("${api.url.local}")
+    private String LocalApiUrl;
 
     @Value("${api.url.directions5}")
     private String Directions5ApiUrl;
+
+    @Value("${api.kakao-key}")
+    private String apiKakaoKey;
 
     @Value("${api.key}")
     private String apiKey;

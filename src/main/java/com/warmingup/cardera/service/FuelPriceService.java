@@ -57,30 +57,29 @@ public class FuelPriceService {
         return extractCoordinateFromResponse(response);
     }
 
+
     private Optional<String> getCoordinateResponseByAddress(String address) {
-        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(apiConfig.getGeocodeApiUrl());
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(apiConfig.getLocalApiUrl());
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.URI_COMPONENT);
 
         WebClient webClient = WebClient.builder().uriBuilderFactory(factory).build();
 
         return Optional.ofNullable(webClient.get()
                 .uri(uriBuilder -> uriBuilder.queryParam("query", address).build())
-                .header("X-NCP-APIGW-API-KEY-ID", apiConfig.getApiKeyId())
-                .header("X-NCP-APIGW-API-KEY", apiConfig.getApiKey())
+                .header("Authorization", "KakaoAK "+apiConfig.getApiKakaoKey())
                 .retrieve().bodyToMono(String.class)
                 .block());
     }
 
     private String extractCoordinateFromResponse(Optional<String> response) {
         JsonObject jsonObject = JsonParser.parseString(response.orElseThrow()).getAsJsonObject();
-        JsonArray addressesArray = jsonObject.getAsJsonArray("addresses");
+        JsonArray addressesArray = jsonObject.getAsJsonArray("documents");
         if (addressesArray.isEmpty()) {
             throw new FailSearchException("주소를 (경도,위도)로 변경할 수 없습니다.");
         }
-        JsonObject addresses = addressesArray.get(0).getAsJsonObject();
-        String longitude = addresses.get("x").toString().replace("\"", "");
-        String latitude = addresses.get("y").toString().replace("\"", "");
-
+        JsonObject roadAddress = addressesArray.get(0).getAsJsonObject().get("road_address").getAsJsonObject();
+        String longitude = roadAddress.get("x").getAsString();
+        String latitude = roadAddress.get("y").getAsString();
         return longitude + "," + latitude;
     }
 
