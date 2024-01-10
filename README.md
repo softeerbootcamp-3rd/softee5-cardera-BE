@@ -26,7 +26,7 @@
 
 ### **비용에 맞는 선물 추천** 🎁
 * 필터로 맞춤 선물 추천
-* 선물 고른 사랆의 수 데이터 제공
+* 선물 고른 사람의 수 데이터 제공
 * 선물 추천 큐레이션 제공
 
 <img src="https://github.com/softeerbootcamp-3nd/softee5-cardera-BE/assets/70956926/4f9b6add-9642-4a1c-84d7-362dabfccd06" height="500px">
