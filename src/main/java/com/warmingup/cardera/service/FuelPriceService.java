@@ -54,7 +54,7 @@ public class FuelPriceService {
 
     private String getCoordinate(String address) {
         Optional<String> response = getCoordinateResponseByAddress(address);
-        return extractCoordinateFromResponse(response);
+        return extractCoordinateFromResponse(response.orElseThrow());
     }
 
 
@@ -71,8 +71,8 @@ public class FuelPriceService {
                 .block());
     }
 
-    private String extractCoordinateFromResponse(Optional<String> response) {
-        JsonObject jsonObject = JsonParser.parseString(response.orElseThrow()).getAsJsonObject();
+    private String extractCoordinateFromResponse(String response) {
+        JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
         JsonArray addressesArray = jsonObject.getAsJsonArray("documents");
         if (addressesArray.isEmpty()) {
             throw new FailSearchException("주소를 (경도,위도)로 변경할 수 없습니다.");
